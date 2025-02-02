@@ -8,6 +8,9 @@ public class Grid {
     private Cell[][] grid;
 
     public Grid(int rows,int cols,int seedPercentage){
+        if (rows <= 0 || cols <= 0) {
+            throw new IllegalArgumentException("Grid dimensions must be greater than zero.");
+        }
         this.rows = rows;
         this.cols = cols;
         this.grid = new Cell[rows][cols];
@@ -15,6 +18,9 @@ public class Grid {
     }
 
     public  void seedGrid(int seedPercentage){
+        if (seedPercentage < 0 || seedPercentage > 100) {
+            throw new IllegalArgumentException("Seed percentage must be between 0 and 100.");
+        }
         Random random = new Random();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
