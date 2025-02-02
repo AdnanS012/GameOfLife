@@ -27,4 +27,7 @@ private final Grid grid;
         }
         scanner.close();
     }
+    public boolean isAllCellsDead(){
+        return grid.isAllDead();
+    }
 }
