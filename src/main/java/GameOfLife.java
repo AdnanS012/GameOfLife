@@ -4,30 +4,41 @@ import java.util.Scanner;
 
 public class GameOfLife {
 private final Grid grid;
+private final Scanner scanner;
 
 
-    public GameOfLife(int rows,int cols,double seedPercentage) {
+    public GameOfLife(int rows,int cols,int seedPercentage,Scanner scanner){
         this.grid = new Grid(rows,cols,seedPercentage);
+        this.scanner = scanner;
     }
 
-    public void start(){
-        Scanner scanner = new Scanner(System.in);
-        while(true){
+    public void start(int maxGenerations) {
+        int generation = 0;
+
+        while (generation < maxGenerations) {
             grid.printGrid();
-            if(grid.isAllDead()){
+            if (grid.isAllDead()) {
                 System.out.println("All cells are dead. Game Over!");
                 break;
             }
+
             System.out.println("Press Enter to continue or type 'exit' to quit");
-            String input = scanner.next();
-            if (input.equalsIgnoreCase("exit")){
-                break;
+
+            if (scanner.hasNextLine()) {  // ✅ Check before reading input
+                String input = scanner.nextLine().trim();
+                if (input.equalsIgnoreCase("exit")) {
+                    break;
+                }
+            } else {
+                break;  // ✅ Exit loop if no input is available (JUnit case)
             }
+
             grid.tick();
+            generation++;
         }
-        scanner.close();
     }
-    public boolean isAllCellsDead(){
+    public boolean isAllCellsDead() {
         return grid.isAllDead();
     }
+
 }
