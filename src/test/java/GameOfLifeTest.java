@@ -32,5 +32,23 @@ public class GameOfLifeTest {
 
         assertTrue(game.isAllCellsDead());
     }
+    @Test
+    public void testGameLoopEndsOnExit() {
+        String simulatedInput = "\nexit\n";
+        Scanner scanner = new Scanner(new ByteArrayInputStream(simulatedInput.getBytes()));
+        GameOfLife game = new GameOfLife(5, 5, 50, scanner);
+        game.start(5);
+        assertNotNull(game);
+    }
+
+    @Test
+    public void testGameEndsWhenAllCellsDead() {
+        String simulatedInput = "exit\n";
+        Scanner scanner = new Scanner(new ByteArrayInputStream(simulatedInput.getBytes()));
+        GameOfLife game = new GameOfLife(5, 5, 0, scanner);
+        game.start(5);
+        assertTrue(game.isAllCellsDead());
+    }
+
 
 }

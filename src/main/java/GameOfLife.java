@@ -8,11 +8,17 @@ private final Scanner scanner;
 
 
     public GameOfLife(int rows,int cols,int seedPercentage,Scanner scanner){
+        if (scanner == null) {
+            throw new IllegalArgumentException("Scanner cannot be null.");
+        }
         this.grid = new Grid(rows,cols,seedPercentage);
         this.scanner = scanner;
     }
 
     public void start(int maxGenerations) {
+        if(maxGenerations <0){
+            throw new IllegalArgumentException("Max generations must be greater than zero.");
+        }
         int generation = 0;
 
         while (generation < maxGenerations) {
