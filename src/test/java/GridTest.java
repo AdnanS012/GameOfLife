@@ -9,6 +9,11 @@ public class GridTest {
         Grid grid = new Grid(5,5,50);
         assertNotNull(grid);
     }
+    @Test
+    public void testGridInvalidDimensions() {
+        assertThrows(IllegalArgumentException.class, () -> new Grid(0, 5, 50));
+        assertThrows(IllegalArgumentException.class, () -> new Grid(5, -1, 50));
+    }
 
     @Test
     public void testGridInvalidSeedPercentage() {
