@@ -9,6 +9,12 @@ public class GridTest {
         Grid grid = new Grid(5,5,50);
         assertNotNull(grid);
     }
+
+    @Test
+    public void testGridInvalidSeedPercentage() {
+        assertThrows(IllegalArgumentException.class, () -> new Grid(5, 5, -10));
+        assertThrows(IllegalArgumentException.class, () -> new Grid(5, 5, 110));
+    }
     @Test
     public void testTick(){
         Grid grid = new Grid(5,5,50);

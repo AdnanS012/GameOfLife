@@ -32,6 +32,7 @@ public class CellTest {
         assertEquals(deadCell, deadCell.evolve(4));
     }
 
+
     @Test
     public void testCellDisplay() {
         Cell aliveCell = new Cell(true);

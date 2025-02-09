@@ -11,6 +11,9 @@ public class Grid {
         if (rows <= 0 || cols <= 0) {
             throw new IllegalArgumentException("Grid dimensions must be greater than zero.");
         }
+        if (seedPercentage < 0 || seedPercentage > 100) {
+            throw new IllegalArgumentException("Seed percentage must be between 0 and 100.");
+        }
         this.rows = rows;
         this.cols = cols;
         this.grid = new Cell[rows][cols];
