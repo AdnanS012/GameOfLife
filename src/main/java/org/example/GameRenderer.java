@@ -1,15 +1,15 @@
 package org.example;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class GameRenderer {
     private final Scanner scanner;
 
     public GameRenderer(Scanner scanner) {
-        if(scanner == null){
-            throw new IllegalArgumentException("Scanner cannot be null");
-        }
-        this.scanner = scanner;
+        this.scanner = Optional.ofNullable(scanner)
+                .orElseThrow(() -> new IllegalArgumentException("Scanner cannot be null"));
+
     }
 
     public void renderGrid(Grid grid) {
