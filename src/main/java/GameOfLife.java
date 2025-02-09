@@ -1,10 +1,11 @@
+import org.example.GameRenderer;
 import org.example.Grid;
 
 import java.util.Scanner;
 
 public class GameOfLife {
 private final Grid grid;
-private final Scanner scanner;
+private final GameRenderer renderer;
 
 
     public GameOfLife(int rows,int cols,int seedPercentage,Scanner scanner){
@@ -12,7 +13,8 @@ private final Scanner scanner;
             throw new IllegalArgumentException("Scanner cannot be null.");
         }
         this.grid = new Grid(rows,cols,seedPercentage);
-        this.scanner = scanner;
+        this.renderer = new GameRenderer(scanner);
+
     }
 
     public void start(int maxGenerations) {
@@ -22,22 +24,14 @@ private final Scanner scanner;
         int generation = 0;
 
         while (generation < maxGenerations) {
-            grid.printGrid();
+            renderer.renderGrid(grid);
             if (grid.isAllDead()) {
                 System.out.println("All cells are dead. Game Over!");
                 break;
             }
-
-            System.out.println("Press Enter to continue or type 'exit' to quit");
-
-            if (scanner.hasNextLine()) {  // ✅ Check before reading input
-                String input = scanner.nextLine().trim();
-                if (input.equalsIgnoreCase("exit")) {
-                    break;
-                }
-            } else {
-                break;  // ✅ Exit loop if no input is available (JUnit case)
-            }
+          if(!renderer.askUserToContinue()){
+              break;
+          }
 
             grid.tick();
             generation++;
