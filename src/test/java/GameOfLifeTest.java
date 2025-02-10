@@ -1,10 +1,11 @@
+import org.example.GameRenderer;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GameOfLifeTest {
     @Test
@@ -24,11 +25,18 @@ public class GameOfLifeTest {
         GameOfLife game = new GameOfLife(5,5,50, mockScanner);
         assertNotNull(game);
     }
+
+
+    @Test
+    public void testConstructorWithNullScanner() {
+        assertThrows(IllegalArgumentException.class, () -> new GameRenderer(null), "Constructor should throw IllegalArgumentException when scanner is null.");
+    }
+
     @Test
     public void testGameEndsIfAllCellsAreDead() {
         Scanner mockScanner = new Scanner(new ByteArrayInputStream("exit\n".getBytes()));
         GameOfLife game = new GameOfLife(5, 5, 0, mockScanner); // 0% alive cells
-        game.start(5);  // ✅ Will exit immediately
+        game.start(5);  //Will exit immediately
 
         assertTrue(game.isAllCellsDead());
     }
@@ -49,6 +57,12 @@ public class GameOfLifeTest {
         game.start(5);
         assertTrue(game.isAllCellsDead());
     }
-
+    @Test
+    public void testGameWithZeroMaxGenerations() {
+        Scanner mockScanner = new Scanner(new ByteArrayInputStream("exit\n".getBytes()));
+        GameOfLife game = new GameOfLife(5, 5, 50, mockScanner);
+        game.start(0);
+        assertFalse(game.isAllCellsDead());
+    }
 
 }

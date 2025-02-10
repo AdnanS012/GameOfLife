@@ -10,6 +10,7 @@ public class CellTest {
         Cell deadCell = new Cell(false);
         assertNotNull(aliveCell);
         assertNotNull(deadCell);
+        
     }
     @Test
     public void testCellEvolve() {
