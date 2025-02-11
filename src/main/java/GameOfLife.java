@@ -44,6 +44,10 @@ private final Grid grid;
         }
     }
 
+    public boolean allCellsDead() {
+        return grid.allCellsDead();
+    }
+
     private boolean askUserToContinue() {
         System.out.println("Press Enter to continue or type 'exit' to quit");
         return !scanner.nextLine().trim().equalsIgnoreCase("exit");
