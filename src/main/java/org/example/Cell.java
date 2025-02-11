@@ -1,27 +1,26 @@
 package org.example;
 
 public final class Cell {
-    private final boolean alive;
-
+    private boolean alive;
+    private boolean nextState;
     public Cell(boolean alive) {
         this.alive = alive;
     }
-    public Cell evolve(int liveNeighbors){
+
+    public void computeNextState(int liveNeighbors){
         if (liveNeighbors < 0) {
             throw new IllegalArgumentException("Number of live neighbors cannot be negative");
         }
-        if (alive){
-            return (liveNeighbors ==2 ) || liveNeighbors == 3 ? new Cell(true) : new Cell(false);
-        } else{
-            return liveNeighbors == 3 ? new Cell(true) : new Cell(false);
-        }
+        nextState = alive ? (liveNeighbors == 2 || liveNeighbors == 3) : (liveNeighbors == 3);
+
     }
 
-    public char display(){
-        return alive ? '*' : '-';
+    public void evolve(){
+        this.alive = nextState;
     }
-    boolean isAlive(){
-        return alive;
+
+    public void render(StringBuilder output){
+        output.append(alive ? '*' : '-');
     }
     @Override
     public boolean equals(Object obj) {
