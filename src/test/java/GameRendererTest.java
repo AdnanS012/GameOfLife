@@ -1,14 +1,13 @@
-import org.example.GameRenderer;
 import org.example.Grid;
 import org.example.GridRenderer;
 import org.example.GridSeeder;
 import org.junit.Test;
 
 
-import java.io.ByteArrayInputStream;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Scanner;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
