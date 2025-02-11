@@ -1,11 +1,21 @@
 import org.example.Grid;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 
 public class GridTest {
+    @Test
+    public void testGridCreation() {
+        assertDoesNotThrow(() -> new Grid(5, 5));
 
+    }
 
-
-
+    @Test
+    public void testGridInvalidDimensions(){
+        assertThrows(IllegalArgumentException.class, () -> new Grid(-1, 5));
+        assertThrows(IllegalArgumentException.class, () -> new Grid(5, -1));
+        assertThrows(IllegalArgumentException.class, () -> new Grid(-1, -1));
+    }
 }
