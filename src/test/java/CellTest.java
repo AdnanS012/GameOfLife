@@ -1,6 +1,7 @@
 import org.example.Cell;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -29,6 +30,21 @@ public class CellTest {
         deadCell.computeNextState(3); // Should become alive
         deadCell.evolve();
         assertDoesNotThrow(() -> deadCell.evolve());
+    }
+
+    @Test
+    public void testCellRendering() {
+        Cell aliveCell = new Cell(true);
+        Cell deadCell = new Cell(false);
+
+        StringBuilder outputAlive = new StringBuilder();
+        StringBuilder outputDead = new StringBuilder();
+
+        aliveCell.render(outputAlive);
+        deadCell.render(outputDead);
+
+        assertEquals("*", outputAlive.toString());
+        assertEquals("-", outputDead.toString());
     }
 
 }
