@@ -24,4 +24,20 @@ private void initializeEmptyGrid(){
             cells[i][j] = new Cell(false);
         }
     }
-}}
+}
+
+
+public boolean allCellsDead(){
+    for(Cell[] row: cells){
+        for(Cell cell: row){
+            if(cell !=null){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+
+
+}
