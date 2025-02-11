@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class GameOfLifeTest {
     @Test
     public void testGameStartsAndStopsAutomatically() {
-        //Simulate user pressing "Enter" twice, then "exit"
         String simulatedUserInput = "\n\nexit\n";
         Scanner mockScanner = new Scanner(new ByteArrayInputStream(simulatedUserInput.getBytes()));
 
