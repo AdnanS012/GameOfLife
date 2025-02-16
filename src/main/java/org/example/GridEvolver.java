@@ -3,6 +3,7 @@ package org.example;
 public class GridEvolver {
     public void evolve(Grid grid) {
         computeNextStates(grid);
+        applyEvolution(grid);
     }
     private void computeNextStates(Grid grid) {
             for (int i = 0; i < grid.rows; i++) {
