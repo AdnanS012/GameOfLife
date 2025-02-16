@@ -3,7 +3,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CellTest {
     @Test
@@ -22,14 +22,19 @@ public class CellTest {
         Cell aliveCell = new Cell(true);
         Cell deadCell = new Cell(false);
 
-        // Compute next state but don't evolve yet
-        aliveCell.computeNextState(2);  // Should stay alive
+        // Alive cell with 2 or 3 neighbors should remain alive
+        aliveCell.computeNextState(2);
         aliveCell.evolve();
-        assertDoesNotThrow(() -> aliveCell.evolve());  // Ensure evolving doesn't break
+        final boolean[] wasExecuted = {false};
+        aliveCell.executeIfAlive(() -> wasExecuted[0] = true);
+        assertTrue(wasExecuted[0], "Alive cell should execute action.");
 
-        deadCell.computeNextState(3); // Should become alive
+        // Dead cell with exactly 3 neighbors should become alive
+        deadCell.computeNextState(3);
         deadCell.evolve();
-        assertDoesNotThrow(() -> deadCell.evolve());
+        final boolean[] executedForDeadCell = {false};
+        deadCell.executeIfAlive(() -> executedForDeadCell[0] = true);
+        assertTrue(executedForDeadCell[0], "Dead cell should have come alive and executed action.");
     }
 
     @Test
@@ -46,8 +51,15 @@ public class CellTest {
         assertEquals("*", outputAlive.toString());
         assertEquals("-", outputDead.toString());
     }
+    @Test
+    public void testExecuteIfAliveDoesNotRunForDeadCell() {
+        Cell deadCell = new Cell(false);
+        final boolean[] wasExecuted = {false};
 
+        deadCell.executeIfAlive(() -> wasExecuted[0] = true);
 
+        assertFalse(wasExecuted[0], "Action should NOT run for a dead cell.");
+    }
 
 
 }

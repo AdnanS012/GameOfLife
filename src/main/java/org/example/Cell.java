@@ -1,5 +1,10 @@
 package org.example;
 
+@FunctionalInterface
+interface CellAction{
+    void apply(Cell cell);
+}
+
 public final class Cell {
     private boolean alive;
     private boolean nextState;
@@ -22,6 +27,15 @@ public final class Cell {
     public void render(StringBuilder output){
         output.append(alive ? '*' : '-');
     }
+
+    public void applyAction(CellAction action){
+        action.apply(this);
+    }
+    public void executeIfAlive(Runnable action) {
+        if (alive) {
+            action.run();
+        }
+    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -34,4 +48,5 @@ public final class Cell {
     public int hashCode() {
         return Boolean.hashCode(alive);
     }
+
 }
