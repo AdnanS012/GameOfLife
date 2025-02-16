@@ -1,5 +1,6 @@
 
 import org.junit.Test;
+
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
@@ -33,6 +34,7 @@ public class GameOfLifeTest {
         game.start(0);
         assertDoesNotThrow(() -> game.start(0));
     }
+
     @Test
     public void testAllCellsAreDead() {
         Scanner mockScanner = new Scanner(new ByteArrayInputStream("exit\n".getBytes()));

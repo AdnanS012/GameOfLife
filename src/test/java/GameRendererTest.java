@@ -4,7 +4,6 @@ import org.example.GridSeeder;
 import org.junit.Test;
 
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 

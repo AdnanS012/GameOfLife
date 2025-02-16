@@ -11,6 +11,7 @@ public class CellTest {
         Cell cell = new Cell(true);
         assertThrows(IllegalArgumentException.class, () -> cell.computeNextState(-1));
     }
+
     @Test
     public void testCellCreation() {
         assertDoesNotThrow(() -> new Cell(true));
@@ -51,6 +52,7 @@ public class CellTest {
         assertEquals("*", outputAlive.toString());
         assertEquals("-", outputDead.toString());
     }
+
     @Test
     public void testExecuteIfAliveDoesNotRunForDeadCell() {
         Cell deadCell = new Cell(false);

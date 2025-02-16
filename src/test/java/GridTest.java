@@ -20,11 +20,12 @@ public class GridTest {
     }
 
     @Test
-    public void testGridInvalidDimensions(){
+    public void testGridInvalidDimensions() {
         assertThrows(IllegalArgumentException.class, () -> new Grid(-1, 5));
         assertThrows(IllegalArgumentException.class, () -> new Grid(5, -1));
         assertThrows(IllegalArgumentException.class, () -> new Grid(-1, -1));
     }
+
     @Test
     public void testGridSeeding() {
         Grid grid = new Grid(5, 5);
@@ -37,6 +38,7 @@ public class GridTest {
         Grid grid = new Grid(3, 3);
         assertTrue(grid.allCellsDead(), "Grid should start with all dead cells.");
     }
+
     @Test
     public void testAllCellsDeadAfterEvolution() {
         Grid grid = new Grid(5, 5);
@@ -66,6 +68,7 @@ public class GridTest {
         GridRenderer renderer = new GridRenderer();
         assertDoesNotThrow(() -> grid.render(renderer));
     }
+
     @Test
     public void testGridRenderingShoudhaveValidCharacter() {
         Grid grid = new Grid(3, 3);

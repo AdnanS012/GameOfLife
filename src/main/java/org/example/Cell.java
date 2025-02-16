@@ -1,18 +1,19 @@
 package org.example;
 
 @FunctionalInterface
-interface CellAction{
+interface CellAction {
     void apply(Cell cell);
 }
 
 public final class Cell {
     private boolean alive;
     private boolean nextState;
+
     public Cell(boolean alive) {
         this.alive = alive;
     }
 
-    public void computeNextState(int liveNeighbors){
+    public void computeNextState(int liveNeighbors) {
         if (liveNeighbors < 0) {
             throw new IllegalArgumentException("Number of live neighbors cannot be negative");
         }
@@ -20,22 +21,24 @@ public final class Cell {
 
     }
 
-    public void evolve(){
+    public void evolve() {
         this.alive = nextState;
     }
 
-    public void render(StringBuilder output){
+    public void render(StringBuilder output) {
         output.append(alive ? '*' : '-');
     }
 
-    public void applyAction(CellAction action){
+    public void applyAction(CellAction action) {
         action.apply(this);
     }
+
     public void executeIfAlive(Runnable action) {
         if (alive) {
             action.run();
         }
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

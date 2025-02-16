@@ -3,13 +3,13 @@ import org.example.*;
 import java.util.Scanner;
 
 public class GameOfLife {
-private final Grid grid;
+    private final Grid grid;
     private final GridSeeder seeder;
     private final GridEvolver evolver;
     private final GridRenderer renderer;
     private final Scanner scanner;
 
-    public GameOfLife(int rows,int cols,int seedPercentage,Scanner scanner){
+    public GameOfLife(int rows, int cols, int seedPercentage, Scanner scanner) {
         if (scanner == null) {
             throw new IllegalArgumentException("Scanner cannot be null.");
         }
@@ -24,22 +24,22 @@ private final Grid grid;
     }
 
     public void start(int maxGenerations) {
-        if(maxGenerations <0){
+        if (maxGenerations < 0) {
             throw new IllegalArgumentException("Max generations must be greater than zero.");
         }
         int generation = 0;
 
         while (generation < maxGenerations) {
-            grid.render(renderer);
+            renderer.render(grid);
             if (allCellsDead()) {
                 System.out.println("All cells are dead. Game Over!");
                 break;
             }
-          if(!askUserToContinue()){
-              break;
-          }
+            if (!askUserToContinue()) {
+                break;
+            }
 
-            grid.evolve(evolver);
+            evolver.evolve(grid);
             generation++;
         }
     }
