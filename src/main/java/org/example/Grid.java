@@ -34,14 +34,13 @@ evolver.evolve(this);
 }
 
 public boolean allCellsDead(){
+    final boolean[] anyAlive = {false};// array to allow modification using inside lamba
     for(Cell[] row: cells){
         for(Cell cell: row){
-            if(cell !=null){
-                return false;
-            }
+           cell.executeIfAlive(()-> anyAlive[0] = true);
         }
     }
-    return true;
+    return !anyAlive[0];
 }
 
 public  void render(GridRenderer renderer){
@@ -71,8 +70,11 @@ void evolveCells(){
                 int r = row + i;
                 int c = col + j;
                 if (r >= 0 && r < rows && c >= 0 && c < cols) {
-                    count++; // No need to check state, all cells participate in evolution
-                }
+                    final boolean[] isNeighborAlive = {false};
+                    cells[r][c].executeIfAlive(() -> isNeighborAlive[0] = true);
+                    if (isNeighborAlive[0]) {
+                        count++;
+                    }                }
             }
         }
         return count;
