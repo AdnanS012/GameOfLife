@@ -1,10 +1,11 @@
-import org.example.Grid;
-import org.example.GridEvolver;
-import org.example.GridSeeder;
+import org.example.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GridEvolverTest {
 
@@ -19,26 +20,42 @@ public class GridEvolverTest {
     }
 
 
-
     @Test
-    public void testNeighborCounting() {
+    public void testEmptyGridStaysEmpty() {
         Grid grid = new Grid(3, 3);
-        GridSeeder seeder = new GridSeeder(100); // All cells alive
+        GridSeeder seeder = new GridSeeder(0);
         grid.seed(seeder);
 
         GridEvolver evolver = new GridEvolver();
-        int count = evolver.countAliveNeighbors(grid, 1, 1);
+        evolver.evolve(grid);
 
-        assertEquals(8, count, "A fully populated grid center should have 8 live neighbors.");
+        // All cells should still be dead
+        assertTrue(grid.allCellsDead(), "A fully empty grid should stay empty after evolution.");
     }
 
     @Test
-    public void testNeighborCountingOnEmptyGrid() {
+    public void testEvolutionPreservesSomeCells() {
         Grid grid = new Grid(3, 3);
+        GridSeeder seeder = new GridSeeder(50); // 50% chance of alive cells
+        grid.seed(seeder);
+
         GridEvolver evolver = new GridEvolver();
+        evolver.evolve(grid);
 
-        int count = evolver.countAliveNeighbors(grid, 1, 1);
+        boolean[] someCellsStillAlive = {false};
 
-        assertEquals(0, count, "All neighbors should be dead in an empty grid.");
+        GridRenderer renderer = new GridRenderer();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+        renderer.render(grid);
+        String output = outputStream.toString().trim();
+        System.setOut(System.out);
+
+        if (output.contains("*")) {
+            someCellsStillAlive[0] = true;
+        }
+
+        assertTrue(someCellsStillAlive[0], "At least some cells should still be alive after evolution.");
     }
+
 }
