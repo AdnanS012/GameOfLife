@@ -33,4 +33,12 @@ public class GameOfLifeTest {
         game.start(0);
         assertDoesNotThrow(() -> game.start(0));
     }
+    @Test
+    public void testAllCellsAreDead() {
+        Scanner mockScanner = new Scanner(new ByteArrayInputStream("exit\n".getBytes()));
+        GameOfLife game = new GameOfLife(5, 5, 0, mockScanner);
+
+        //Ensure the game correctly detects all cells as dead
+        assertTrue(game.allCellsDead(), "Game should detect all cells as dead.");
+    }
 }

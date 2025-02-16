@@ -31,7 +31,7 @@ private final Grid grid;
 
         while (generation < maxGenerations) {
             grid.render(renderer);
-            if (grid.allCellsDead()) {
+            if (allCellsDead()) {
                 System.out.println("All cells are dead. Game Over!");
                 break;
             }
